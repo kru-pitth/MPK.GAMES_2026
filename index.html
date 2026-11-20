@@ -1,1 +1,143 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>POPULAR VOTE | ม.พ.ค.เกมส์ ครั้งที่ 55</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fff7e0;--bg2:#ffe9b8;--card:#ffffff;--ink:#1c2250;--muted:#5d678f;--line:#1c2250;--sun:#ffc533;--pop:#ff4f8b;--sky:#2ec4ff;--track:#eef0fa;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#171a3d;--bg2:#10132e;--card:#232857;--ink:#fff7e0;--muted:#b3bbe0;--line:#000a;--track:#14173a}}
+:root[data-theme="dark"]{--bg:#171a3d;--bg2:#10132e;--card:#232857;--ink:#fff7e0;--muted:#b3bbe0;--line:#000a;--track:#14173a}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*:before,*:after{box-sizing:border-box}
+body{margin:0;font-family:'Prompt','Kanit',system-ui,sans-serif;color:var(--ink);background:var(--bg);min-height:100vh;overflow-x:hidden;
+background-image:radial-gradient(circle at 12% 8%,#ff4f8b22 0 90px,transparent 91px),radial-gradient(circle at 92% 18%,#2ec4ff2a 0 120px,transparent 121px),radial-gradient(circle at 80% 85%,#ffc53330 0 140px,transparent 141px),linear-gradient(var(--bg),var(--bg2))}
+.lanes{height:26px;background:repeating-linear-gradient(90deg,#ff4f8b 0 40px,#ffc533 40px 80px,#35d96b 80px 120px,#2ec4ff 120px 160px,#8b5cff 160px 200px)}
+.wrap{width:min(1080px,calc(100% - 32px));margin:auto;padding:30px 0 50px;position:relative}
+.deco{position:absolute;font-size:clamp(28px,5vw,46px);animation:float 4s ease-in-out infinite;user-select:none}
+.d1{left:2%;top:34px}.d2{right:3%;top:20px;animation-delay:-1.3s}.d3{left:8%;top:210px;animation-delay:-2.4s}.d4{right:7%;top:230px;animation-delay:-.7s}
+@keyframes float{50%{transform:translateY(-12px) rotate(10deg)}}
+header{text-align:center;margin-bottom:26px}
+.tag{display:inline-block;background:var(--sun);color:#1c2250;font-weight:700;font-size:14px;padding:7px 18px;border-radius:99px;border:3px solid #1c2250;box-shadow:0 4px 0 #1c2250;transform:rotate(-2deg)}
+h1{margin:20px 0 8px;font-size:clamp(46px,10vw,98px);line-height:1;font-weight:900;letter-spacing:-1px;color:var(--ink);text-shadow:3px 3px 0 var(--pop),6px 6px 0 var(--sun),9px 9px 0 var(--sky)}
+.sub{color:var(--muted);font-size:clamp(15px,2.2vw,19px);font-weight:500;line-height:1.6;margin-top:18px}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;max-width:640px;margin:26px auto 40px}
+.stat{background:var(--card);border:3px solid var(--line);border-radius:24px;padding:16px 14px;text-align:center;box-shadow:0 6px 0 var(--line)}
+.stat{animation:wig 2.6s ease-in-out infinite}.stat:nth-child(2){animation-delay:-1.3s}@keyframes wig{0%,100%{transform:rotate(-1.6deg)}50%{transform:rotate(1.6deg) translateY(-4px)}}
+.stat .ic{font-size:26px}.stat-label{color:var(--muted);font-size:14px;font-weight:500}
+.stat-value{font-size:clamp(26px,5vw,40px);font-weight:800;font-variant-numeric:tabular-nums;line-height:1.3}
+.stat-value small{font-size:14px;font-weight:500;color:var(--muted)}
+.sec{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:0 0 20px}
+.sec h2{margin:0;font-size:clamp(21px,4vw,28px);font-weight:800}.sec span{color:var(--muted);font-size:13px}
+.podium{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;align-items:end;margin-bottom:42px}
+.pc{--t:color-mix(in srgb,var(--c),#1c2250 38%);position:relative;text-align:center;background:var(--card);border:3px solid var(--line);border-radius:26px;padding:12px 8px 18px;box-shadow:0 8px 0 var(--c),0 8px 0 3px var(--line);min-height:250px}
+.pc.first{min-height:310px;padding-top:30px;background:linear-gradient(var(--card),var(--card)) padding-box}
+.pc:before{content:"";position:absolute;inset:0;border-radius:23px;background:radial-gradient(circle at 50% 0,color-mix(in srgb,var(--c),transparent 72%),transparent 70%);pointer-events:none}
+.mw{position:relative;width:clamp(78px,17vw,130px);margin:0 auto}
+.first .mw{width:clamp(96px,22vw,168px);animation:hop 1.6s ease-in-out infinite}
+@keyframes hop{50%{transform:translateY(-12px)}}
+.mw svg{display:block;width:100%;height:auto}
+.acc{position:absolute;font-size:clamp(24px,5vw,40px);line-height:1}
+.crown{top:-26px;left:50%;transform:translateX(-50%) rotate(-8deg)}
+.side{right:-14px;bottom:4px}
+.rank{display:inline-block;margin-top:8px;font-size:13px;font-weight:700;background:var(--c);color:#1c2250;padding:3px 12px;border-radius:99px;border:2px solid #1c2250}
+.team{font-size:clamp(20px,4vw,30px);font-weight:800;margin:6px 0 0;color:var(--t)}
+.dark-t{color:var(--c)}
+.score{font-size:clamp(20px,3.6vw,31px);font-weight:800;font-variant-numeric:tabular-nums}
+.people{color:var(--muted);font-size:13px;font-weight:500}
+.board{background:var(--card);border:3px solid var(--line);border-radius:28px;padding:22px 22px 14px;box-shadow:0 8px 0 var(--line)}
+.row{--t:color-mix(in srgb,var(--c),#1c2250 38%);display:grid;grid-template-columns:112px 1fr 108px;gap:16px;align-items:center;margin:8px 0 20px}
+.rt{font-weight:700;font-size:17px;color:var(--t)}
+.track{height:20px;border-radius:99px;background:var(--track);border:2px solid var(--line);position:relative}
+.fill{height:100%;width:0;border-radius:99px;background:repeating-linear-gradient(-45deg,var(--c) 0 10px,color-mix(in srgb,var(--c),white 28%) 10px 20px);position:relative;transition:width 1.6s cubic-bezier(.3,.9,.3,1)}
+.runner{position:absolute;right:-16px;top:-17px;width:44px;animation:run .5s ease-in-out infinite}
+@keyframes run{50%{transform:translateY(-4px) rotate(6deg)}}
+.rn{text-align:right;font-weight:700;font-size:15px;font-variant-numeric:tabular-nums}
+.rn small{display:block;color:var(--muted);font-weight:400;font-size:12px}
+.foot{text-align:center;color:var(--muted);font-size:12px;margin-top:28px}
+@media(max-width:620px){.wrap{width:calc(100% - 24px)}.podium{gap:8px}.pc{padding:10px 4px 14px;border-radius:20px;min-height:215px}.pc.first{min-height:262px}.side{right:-8px}
+.board{padding:16px 12px 6px}.row{grid-template-columns:72px 1fr 78px;gap:10px}.rt{font-size:14px}.rn{font-size:12px}.track{height:15px}.runner{width:34px;top:-14px;right:-12px}.d3,.d4{display:none}}
+.tag{animation:wob 2.2s ease-in-out infinite}
+@keyframes wob{0%,100%{transform:rotate(-2deg) scale(1)}50%{transform:rotate(3deg) scale(1.1)}}
+h1{transform-origin:50% 100%;animation:jelly 2.8s ease-in-out infinite}
+@keyframes jelly{0%,100%{transform:scale(1,1)}25%{transform:scale(1.05,.92)}45%{transform:scale(.97,1.06) translateY(-8px)}65%{transform:scale(1.02,.97)}}
+.pc{transition:transform .3s cubic-bezier(.3,1.9,.5,1);animation:bob 2.4s ease-in-out infinite}
+.pc:nth-child(1){animation-delay:-.8s}.pc:nth-child(3){animation-delay:-1.6s}
+@keyframes bob{50%{translate:0 -6px}}
+.pc:hover{transform:translateY(-8px) rotate(-2deg) scale(1.03)}
+.pc:not(.first) .mw{transform-origin:50% 100%;animation:sway 1.4s ease-in-out infinite}
+.pc:nth-child(3) .mw{animation-delay:-.7s}
+@keyframes sway{0%,100%{transform:rotate(-7deg)}50%{transform:rotate(7deg) translateY(-6px)}}
+.crown{animation:crown 1.2s ease-in-out infinite}
+@keyframes crown{0%,100%{transform:translateX(-50%) rotate(-12deg)}50%{transform:translateX(-50%) translateY(-6px) rotate(10deg)}}
+.side{animation:tilt 1s ease-in-out infinite}
+@keyframes tilt{0%,100%{transform:rotate(-14deg)}50%{transform:rotate(14deg) scale(1.15)}}
+.rank{animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{50%{transform:scale(1.1)}}
+.row:nth-child(even) .runner{animation-delay:-.25s}.row:nth-child(3n) .runner{animation-duration:.4s}
+.d3{animation:spin 6s linear infinite}.d4{animation:float 2.6s ease-in-out infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.mw,.runner,.deco,.stat,.tag{cursor:pointer;-webkit-tap-highlight-color:transparent}
+@media(prefers-reduced-motion:reduce){.fill{transition:none}*{animation:none!important}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<symbol id="m" viewBox="0 0 100 100">
+<ellipse cx="50" cy="94" rx="27" ry="5" fill="#1c225022"/>
+<ellipse cx="36" cy="90" rx="11" ry="6" fill="color-mix(in srgb,var(--c),#000 28%)"/><ellipse cx="64" cy="90" rx="11" ry="6" fill="color-mix(in srgb,var(--c),#000 28%)"/>
+<path d="M14 62q-10-4-9-17M86 62q10-4 9-17" stroke="#1c2250" stroke-width="12" fill="none" stroke-linecap="round"/>
+<path d="M14 62q-10-4-9-17M86 62q10-4 9-17" stroke="var(--c)" stroke-width="7" fill="none" stroke-linecap="round"/>
+<circle cx="50" cy="54" r="38" fill="var(--c)" stroke="#1c2250" stroke-width="4"/>
+<path d="M14 42q36-26 72 0" stroke="#1c2250" stroke-width="11" fill="none" stroke-linecap="round"/>
+<path d="M14 42q36-26 72 0" stroke="#fff" stroke-width="6" fill="none" stroke-linecap="round"/>
+<circle cx="37" cy="58" r="7" fill="#1c2250"/><circle cx="63" cy="58" r="7" fill="#1c2250"/>
+<circle cx="39.5" cy="55.5" r="2.6" fill="#fff"/><circle cx="65.5" cy="55.5" r="2.6" fill="#fff"/>
+<ellipse cx="26" cy="68" rx="6" ry="4" fill="#ff6fa0" opacity=".7"/><ellipse cx="74" cy="68" rx="6" ry="4" fill="#ff6fa0" opacity=".7"/>
+<path d="M42 69q8 9 16 0z" fill="#1c2250" stroke="#1c2250" stroke-width="3" stroke-linejoin="round"/>
+</symbol>
+</svg>
+<div class="lanes"></div>
+<main class="wrap">
+<span class="deco d1">⚽</span><span class="deco d2">🏀</span><span class="deco d3">🏅</span><span class="deco d4">🎽</span>
+<header>
+  <span class="tag">🎉 SPORTS DAY</span>
+  <h1>POPULAR VOTE</h1>
+  <div class="sub">สรุปผลคะแนนโหวตโชว์เชียร์คณะสี<br>การแข่งขันกีฬาภายใน ประจำปี 2569 · ม.พ.ค.เกมส์ ครั้งที่ 55</div>
+</header>
+
+<section class="stats" aria-label="ภาพรวมผลโหวต">
+  <div class="stat"><div class="ic">🗳️</div><div class="stat-label">คะแนนโหวตรวมทั้งหมด</div><div class="stat-value">3,837,171 <small>คะแนน</small></div></div>
+  <div class="stat"><div class="ic">🙌</div><div class="stat-label">จำนวนผู้ร่วมโหวต</div><div class="stat-value">736 <small>คน</small></div></div>
+</section>
+
+<div class="sec"><h2>🏆 อันดับ Popular Vote</h2><span>เรียงตามคะแนนรวม</span></div>
+<section class="podium">
+  <article class="pc" style="--c:#ff9d24"><div class="mw"><svg viewBox="0 0 100 100"><use href="#m"/></svg><span class="acc side">🥈</span></div><span class="rank">อันดับ 2</span><div class="team">สีแสด</div><div class="score">799,400</div><div class="people">137 ผู้โหวต</div></article>
+  <article class="pc first" style="--c:#35ee62"><div class="mw"><span class="acc crown">👑</span><svg viewBox="0 0 100 100"><use href="#m"/></svg><span class="acc side">🥇</span></div><span class="rank">อันดับ 1 แชมป์!</span><div class="team">สีเขียว</div><div class="score">928,181</div><div class="people">166 ผู้โหวต</div></article>
+  <article class="pc" style="--c:#20e9f1"><div class="mw"><svg viewBox="0 0 100 100"><use href="#m"/></svg><span class="acc side">🥉</span></div><span class="rank">อันดับ 3</span><div class="team">สีฟ้า</div><div class="score">718,116</div><div class="people">157 ผู้โหวต</div></article>
+</section>
+
+<section class="board">
+  <div class="sec"><h2>📊 ตารางคะแนนครบทุกคณะสี</h2><span>คะแนนรวม / ผู้โหวต</span></div>
+  <div class="row" style="--c:#35ee62"><div class="rt">1. สีเขียว</div><div class="track"><div class="fill" data-w="100"><svg class="runner" viewBox="0 0 100 100"><use href="#m"/></svg></div></div><div class="rn">928,181<small>166 คน</small></div></div>
+  <div class="row" style="--c:#ff9d24"><div class="rt">2. สีแสด</div><div class="track"><div class="fill" data-w="86.1"><svg class="runner" viewBox="0 0 100 100"><use href="#m"/></svg></div></div><div class="rn">799,400<small>137 คน</small></div></div>
+  <div class="row" style="--c:#20e9f1"><div class="rt">3. สีฟ้า</div><div class="track"><div class="fill" data-w="77.4"><svg class="runner" viewBox="0 0 100 100"><use href="#m"/></svg></div></div><div class="rn">718,116<small>157 คน</small></div></div>
+  <div class="row" style="--c:#343cff"><div class="rt">4. สีน้ำเงิน</div><div class="track"><div class="fill" data-w="65.9"><svg class="runner" viewBox="0 0 100 100"><use href="#m"/></svg></div></div><div class="rn">611,522<small>118 คน</small></div></div>
+  <div class="row" style="--c:#bd38ff"><div class="rt">5. สีม่วง</div><div class="track"><div class="fill" data-w="43.6"><svg class="runner" viewBox="0 0 100 100"><use href="#m"/></svg></div></div><div class="rn">404,818<small>77 คน</small></div></div>
+  <div class="row" style="--c:#f000df"><div class="rt">6. สีชมพู</div><div class="track"><div class="fill" data-w="40.4"><svg class="runner" viewBox="0 0 100 100"><use href="#m"/></svg></div></div><div class="rn">375,134<small>81 คน</small></div></div>
+</section>
+<div class="foot">ข้อมูลสรุปผลตามตารางคะแนน Popular Vote ที่ได้รับ · ม.พ.ค.เกมส์ ครั้งที่ 55</div>
+</main>
+<div class="lanes"></div>
+<script>
+window.addEventListener('DOMContentLoaded',()=>{requestAnimationFrame(()=>setTimeout(()=>document.querySelectorAll('.fill').forEach(el=>el.style.width=el.dataset.w+'%'),150));});
+document.addEventListener('click',e=>{const t=e.target.closest('.mw,.runner,.deco,.stat,.tag');if(!t||matchMedia('(prefers-reduced-motion:reduce)').matches)return;const r=t.getBoundingClientRect(),em=['⭐','🎉','🏅','✨','⚽','🎈'];for(let i=0;i<10;i++){const s=document.createElement('span');s.textContent=em[i%em.length];s.style.cssText='position:fixed;pointer-events:none;z-index:9;font-size:22px;left:'+(r.left+r.width/2)+'px;top:'+(r.top+r.height/2)+'px';document.body.appendChild(s);const a=Math.random()*6.28,d=60+Math.random()*90;s.animate([{transform:'translate(-50%,-50%) scale(.4)',opacity:1},{transform:'translate(calc(-50% + '+Math.cos(a)*d+'px),calc(-50% + '+(Math.sin(a)*d-40)+'px)) scale(1.3) rotate(240deg)',opacity:0}],{duration:900,easing:'ease-out'}).onfinish=()=>s.remove();}t.animate([{scale:'1'},{scale:'1.25 .75'},{scale:'.9 1.2'},{scale:'1'}],{duration:450});});
+</script>
+</body>
+</html>
 
