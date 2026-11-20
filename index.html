@@ -186,15 +186,20 @@ function update(){
   if(left<=0)finish();
 }
 /* ส่งคะแนนเข้า Google Sheet (อัปเดตแถวเดิมของผู้เล่นคนนี้) */
-function push(force){
+function send(body,leaving){
+  if(leaving&&navigator.sendBeacon){
+    try{if(navigator.sendBeacon(SHEET_URL,new Blob([body],{type:"text/plain;charset=UTF-8"})))return Promise.resolve()}catch(e){}
+  }
+  return fetch(SHEET_URL,{method:"POST",mode:"no-cors",credentials:"omit",keepalive:true,
+    headers:{"Content-Type":"text/plain;charset=UTF-8"},body});
+}
+function push(force,leaving){
   if(!team||!SHEET_URL.startsWith("http"))return;
   if(!force&&score===lastSent)return;
   lastSent=score;
-  const body=JSON.stringify({id:sid,team:team.n,score});
-  let ok=false;
-  try{ok=navigator.sendBeacon&&navigator.sendBeacon(SHEET_URL,new Blob([body],{type:"text/plain"}))}catch(e){}
-  if(!ok)fetch(SHEET_URL,{method:"POST",mode:"no-cors",keepalive:true,headers:{"Content-Type":"text/plain"},body}).catch(()=>{lastSent=-1});
-  const d=new Date();$("sync").textContent="☁️ บันทึกล่าสุด "+d.toLocaleTimeString("th-TH");
+  send(JSON.stringify({id:sid,team:team.n,score}),leaving)
+    .then(()=>{$("sync").textContent="☁️ ส่งคะแนนล่าสุด "+new Date().toLocaleTimeString("th-TH")})
+    .catch(()=>{lastSent=-1;$("sync").textContent="⚠️ ส่งคะแนนไม่สำเร็จ กำลังลองใหม่..."});
 }
 $("pad").addEventListener("pointerdown",e=>{
   e.preventDefault();if(Date.now()>=endAt)return;
@@ -211,8 +216,8 @@ function finish(){
   $("final").textContent=score.toLocaleString();$("dteam").textContent="คณะ"+team.n;show("done");
 }
 /* บันทึกทันทีเมื่อออกจากหน้า/สลับแอป/ปิดเบราว์เซอร์ */
-document.addEventListener("visibilitychange",()=>{if(document.hidden)push(true)});
-addEventListener("pagehide",()=>push(true));
+document.addEventListener("visibilitychange",()=>{if(document.hidden)push(true,true)});
+addEventListener("pagehide",()=>push(true,true));
 $("again").onclick=()=>{theme(TEAMS[0]);show("pick")};
 /* กลับเข้ามาเล่นต่อได้ถ้ายังไม่หมดเวลา */
 try{const s=JSON.parse(localStorage.getItem(KEY)||"null");
