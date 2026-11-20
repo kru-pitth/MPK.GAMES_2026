@@ -28,6 +28,7 @@ h1{font-size:2rem;margin:10px 0 2px;text-align:center;text-shadow:0 3px 0 #0006,
 .bar{display:flex;justify-content:space-between;align-items:center;width:100%;max-width:520px;gap:8px}
 .pill{background:linear-gradient(var(--c),var(--dk));border-radius:999px;padding:6px 18px;font-weight:800;box-shadow:0 3px 0 #0005,inset 0 1px 0 #fff8;text-shadow:0 1px 2px #0006}
 .time{font-size:1.6rem;font-weight:800;font-variant-numeric:tabular-nums;text-shadow:0 2px 6px #000a}
+.back{border:0;border-radius:999px;padding:6px 14px;font:inherit;font-weight:700;color:#fff;background:#0006;cursor:pointer}
 .prog{width:100%;max-width:520px;height:10px;border-radius:9px;background:#0006;margin:6px 0;overflow:hidden;box-shadow:inset 0 2px 4px #0008}
 .prog i{display:block;height:100%;width:100%;background:linear-gradient(90deg,var(--dk),var(--c),#fff8);border-radius:9px}
 .score{font-size:4.6rem;font-weight:900;line-height:1;font-variant-numeric:tabular-nums;margin:2px 0;
@@ -76,7 +77,7 @@ button.big:active{transform:translateY(4px);box-shadow:0 2px 0 #0006}
 </section>
 
 <section id="play" class="screen">
-  <div class="bar"><span class="pill" id="tname"></span><span class="time" id="timer">15:00</span></div>
+  <div class="bar"><button class="back" id="back">← เปลี่ยนสี</button><span class="pill" id="tname"></span><span class="time" id="timer">15:00</span></div>
   <div class="prog"><i id="pbar"></i></div>
   <div class="score" id="score">0</div>
   <div id="pad"><div id="pod"></div><div id="charBox"></div><span id="hint">👆 แตะรัวๆ ที่หน้าจอ!</span></div>
@@ -166,7 +167,7 @@ let team,score=0,endAt=0,sid="",tick,syncT,boostTO,lastSent=-1,total=DURATION_MI
 
 TEAMS.forEach(t=>{const b=document.createElement("button");b.className="team";
   b.style.setProperty("--t",t.c);b.style.setProperty("--d",sh(t.c,-.45));
-  b.innerHTML=char(t)+t.n;b.onclick=()=>begin(t,0,Date.now()+total,"p"+Date.now().toString(36)+Math.random().toString(36).slice(2,7));
+  b.innerHTML=char(t)+t.n;b.onclick=()=>begin(t,score,endAt>Date.now()?endAt:Date.now()+total,sid||"p"+Date.now().toString(36)+Math.random().toString(36).slice(2,7));
   $("teams").appendChild(b)});
 
 function theme(t){const r=document.documentElement.style;r.setProperty("--c",t.c);r.setProperty("--dk",sh(t.c,-.45))}
@@ -218,7 +219,8 @@ function finish(){
 /* บันทึกทันทีเมื่อออกจากหน้า/สลับแอป/ปิดเบราว์เซอร์ */
 document.addEventListener("visibilitychange",()=>{if(document.hidden)push(true,true)});
 addEventListener("pagehide",()=>push(true,true));
-$("again").onclick=()=>{theme(TEAMS[0]);show("pick")};
+$("back").onclick=()=>show("pick");
+$("again").onclick=()=>{score=0;endAt=0;sid="";team=null;theme(TEAMS[0]);show("pick")};
 /* กลับเข้ามาเล่นต่อได้ถ้ายังไม่หมดเวลา */
 try{const s=JSON.parse(localStorage.getItem(KEY)||"null");
   if(s&&s.endAt>Date.now())begin(TEAMS[s.ti],s.score,s.endAt,s.sid);else localStorage.removeItem(KEY)}catch(e){}
