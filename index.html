@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, viewport-fit=cover">
+<title>เชียร์กีฬาสี</title>
+<style>
+:root{--c:#ff5fa2;--dk:#a8325f}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;min-height:100%;font-family:"Noto Sans Thai","Sarabun",system-ui,sans-serif;color:#fff;touch-action:manipulation;user-select:none;-webkit-user-select:none;overscroll-behavior:none}
+body{min-height:100vh;background:radial-gradient(ellipse 90% 55% at 50% 0%,color-mix(in srgb,var(--c) 70%,#fff) 0,transparent 70%),linear-gradient(#1a1245,#2b1a66 55%,#101c3a);background-attachment:fixed;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;background:
+ radial-gradient(circle at 12% 18%,#ffffff55 0 3px,transparent 4px),radial-gradient(circle at 82% 12%,#ffffff66 0 4px,transparent 5px),
+ radial-gradient(circle at 30% 40%,#ffffff33 0 6px,transparent 7px),radial-gradient(circle at 70% 35%,#ffffff44 0 5px,transparent 6px),
+ conic-gradient(from 160deg at 15% -5%,transparent 0 8deg,#fff3 8deg 14deg,transparent 14deg),conic-gradient(from 190deg at 85% -5%,transparent 0 8deg,#fff3 8deg 14deg,transparent 14deg);animation:tw 4s ease-in-out infinite alternate}
+@keyframes tw{to{opacity:.55}}
+body::after{content:"";position:fixed;left:0;right:0;bottom:0;height:22vh;pointer-events:none;background:linear-gradient(transparent,#0b6b3a88 40%,#0b6b3acc),repeating-linear-gradient(90deg,#ffffff10 0 40px,transparent 40px 80px)}
+.screen{display:none;position:relative;z-index:1;min-height:100vh;padding:max(16px,env(safe-area-inset-top)) 16px max(16px,env(safe-area-inset-bottom));flex-direction:column;align-items:center}
+.screen.on{display:flex}
+h1{font-size:2rem;margin:10px 0 2px;text-align:center;text-shadow:0 3px 0 #0006,0 0 22px #ffd54f}
+.sub{margin:0 0 16px;opacity:.85;text-align:center}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;width:100%;max-width:460px}
+.team{--t:#fff;--d:#000;border:0;border-radius:24px;padding:6px 6px 10px;font:inherit;font-weight:800;font-size:1.1rem;color:#fff;cursor:pointer;position:relative;overflow:hidden;
+ background:linear-gradient(160deg,color-mix(in srgb,var(--t) 55%,#fff),var(--t) 55%,var(--d));box-shadow:0 7px 0 var(--d),0 16px 24px #0006,inset 0 2px 0 #fff9;text-shadow:0 2px 3px #0008}
+.team::after{content:"";position:absolute;left:-20%;top:-30%;width:140%;height:55%;background:#fff3;border-radius:50%;transform:rotate(-8deg)}
+.team svg{width:100%;height:150px;position:relative;z-index:1}
+.team:active{transform:translateY(5px);box-shadow:0 2px 0 var(--d),0 6px 12px #0006}
+.bar{display:flex;justify-content:space-between;align-items:center;width:100%;max-width:520px;gap:8px}
+.pill{background:linear-gradient(var(--c),var(--dk));border-radius:999px;padding:6px 18px;font-weight:800;box-shadow:0 3px 0 #0005,inset 0 1px 0 #fff8;text-shadow:0 1px 2px #0006}
+.time{font-size:1.6rem;font-weight:800;font-variant-numeric:tabular-nums;text-shadow:0 2px 6px #000a}
+.prog{width:100%;max-width:520px;height:10px;border-radius:9px;background:#0006;margin:6px 0;overflow:hidden;box-shadow:inset 0 2px 4px #0008}
+.prog i{display:block;height:100%;width:100%;background:linear-gradient(90deg,var(--dk),var(--c),#fff8);border-radius:9px}
+.score{font-size:4.6rem;font-weight:900;line-height:1;font-variant-numeric:tabular-nums;margin:2px 0;
+ text-shadow:0 2px 0 var(--c),0 4px 0 var(--dk),0 6px 0 #0006,0 12px 24px var(--c)}
+#pad{flex:1;width:100%;max-width:520px;min-height:340px;position:relative;display:flex;align-items:flex-end;justify-content:center;cursor:pointer;overflow:hidden;border-radius:28px;
+ background:radial-gradient(ellipse at 50% 85%,color-mix(in srgb,var(--c) 60%,transparent),transparent 65%),#ffffff12;border:2px solid #fff4;backdrop-filter:blur(3px);box-shadow:inset 0 0 40px #fff2,0 14px 30px #0006}
+#pod{position:absolute;bottom:14px;width:62%;height:34px;border-radius:50%;background:radial-gradient(ellipse,#fff,var(--c) 55%,var(--dk));box-shadow:0 10px 0 var(--dk),0 20px 22px #000a,0 0 40px var(--c)}
+#charBox{position:relative;width:min(78vw,360px);margin-bottom:22px;filter:drop-shadow(0 12px 10px #0006)}
+#charBox svg{width:100%;display:block}
+#hint{position:absolute;top:12px;font-weight:800;animation:pulse 1s infinite alternate;text-shadow:0 2px 6px #000a}
+@keyframes pulse{to{transform:scale(1.12)}}
+.fx{position:absolute;pointer-events:none;font-weight:900;font-size:1.7rem;text-shadow:0 2px 0 #0007;animation:up .8s forwards;color:#fff}
+.dot{position:absolute;width:10px;height:10px;border-radius:3px;pointer-events:none;animation:pop .7s forwards}
+@keyframes up{to{transform:translateY(-100px) scale(1.3);opacity:0}}
+@keyframes pop{to{transform:translate(var(--x),var(--y)) rotate(360deg);opacity:0}}
+#sync{font-size:.8rem;opacity:.8;margin-top:6px;text-shadow:0 1px 3px #000a}
+button.big{margin-top:18px;border:0;border-radius:18px;padding:14px 32px;font:inherit;font-weight:800;font-size:1.2rem;color:#fff;cursor:pointer;background:linear-gradient(var(--c),var(--dk));box-shadow:0 6px 0 #0006,inset 0 2px 0 #fff8;text-shadow:0 2px 3px #0007}
+button.big:active{transform:translateY(4px);box-shadow:0 2px 0 #0006}
+.trophy{font-size:4rem;filter:drop-shadow(0 6px 8px #0008)}
+/* dance */
+.body{transform-origin:120px 290px;animation:sway 1.1s ease-in-out infinite}
+.boost .body{animation:hop .28s ease-in-out infinite}
+.head{transform-origin:120px 150px;animation:tilt 1.1s ease-in-out infinite alternate}
+.skirt{transform-origin:120px 215px;animation:flare 1.1s ease-in-out infinite alternate}
+.boost .skirt{animation-duration:.28s}
+.tail{transform-origin:150px 70px;animation:tl .7s ease-in-out infinite alternate}
+.tailL{transform-origin:90px 70px;animation:tr .7s ease-in-out infinite alternate}
+.aL{transform-origin:92px 158px;animation:wL .6s ease-in-out infinite alternate}
+.aR{transform-origin:148px 158px;animation:wR .6s ease-in-out infinite alternate}
+.boost .aL,.boost .aR,.boost .tail,.boost .tailL{animation-duration:.2s}
+@keyframes sway{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg) translateY(-6px)}}
+@keyframes hop{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-22px) rotate(4deg)}}
+@keyframes tilt{from{transform:rotate(-5deg)}to{transform:rotate(5deg)}}
+@keyframes flare{from{transform:scaleX(.95)}to{transform:scaleX(1.1)}}
+@keyframes tl{from{transform:rotate(-12deg)}to{transform:rotate(14deg)}}
+@keyframes tr{from{transform:rotate(12deg)}to{transform:rotate(-14deg)}}
+@keyframes wL{from{transform:rotate(-30deg)}to{transform:rotate(30deg)}}
+@keyframes wR{from{transform:rotate(30deg)}to{transform:rotate(-30deg)}}
+</style>
+</head>
+<body>
+<section id="pick" class="screen on">
+  <h1>🏆 เชียร์กีฬาสี 🏆</h1>
+  <p class="sub">เลือกคณะสีที่คุณรัก แล้วรัวนิ้วปั๊มคะแนนให้สีของเรา!</p>
+  <div class="grid" id="teams"></div>
+</section>
+
+<section id="play" class="screen">
+  <div class="bar"><span class="pill" id="tname"></span><span class="time" id="timer">15:00</span></div>
+  <div class="prog"><i id="pbar"></i></div>
+  <div class="score" id="score">0</div>
+  <div id="pad"><div id="pod"></div><div id="charBox"></div><span id="hint">👆 แตะรัวๆ ที่หน้าจอ!</span></div>
+  <div id="sync">☁️ บันทึกคะแนนอัตโนมัติ</div>
+</section>
+
+<section id="done" class="screen" style="justify-content:center">
+  <div class="trophy">🏆</div>
+  <h1>หมดเวลา!</h1>
+  <p class="sub" id="dteam"></p>
+  <div class="score" id="final">0</div>
+  <p class="sub">คะแนนที่คุณปั๊มได้</p>
+  <div id="status">✅ บันทึกคะแนนแล้ว</div>
+  <button class="big" id="again">เล่นอีกครั้ง</button>
+</section>
+
+<script>
+/* ===== ตั้งค่า ===== */
+const SHEET_URL = "https://script.google.com/macros/s/AKfycbwy4RXrEBRDfvd3qKDUzDb3syyZLZ1FjPWH0aludCiKsLbvX-c5b6RhZYXf3_bFLYV0/exec";
+const DURATION_MIN = 15;     // เวลาเล่น (นาที)
+const SYNC_MS = 3000;        // ส่งคะแนนเข้าชีตทุกกี่มิลลิวินาที
+
+const TEAMS = [
+  {n:"สีชมพู", c:"#ff5fa2", h:"#8a4b2a", s:"twin"},
+  {n:"สีเขียว", c:"#2fb34a", h:"#1f1a2e", s:"pony"},
+  {n:"สีน้ำเงิน", c:"#2f5bea", h:"#4a2f20", s:"bob"},
+  {n:"สีม่วง", c:"#9b51e0", h:"#2a2036", s:"long"},
+  {n:"สีฟ้า", c:"#2fb6f0", h:"#d99a3c", s:"buns"},
+  {n:"สีแสด", c:"#ff8c1a", h:"#a33b1d", s:"side"}
+];
+
+/* ===== ตัวละครเชียร์ลีดเดอร์ ===== */
+function sh(hex,f){const n=parseInt(hex.slice(1),16);let r=n>>16,g=n>>8&255,b=n&255;
+  const m=f<0?0:255,p=Math.abs(f);[r,g,b]=[r,g,b].map(v=>Math.round(v+(m-v)*p));
+  return "#"+((1<<24)+(r<<16)+(g<<8)+b).toString(16).slice(1)}
+function pom(x,y,c){return `<g><circle cx="${x}" cy="${y}" r="23" fill="${sh(c,-.2)}"/><circle cx="${x}" cy="${y}" r="22" fill="none" stroke="#fff" stroke-width="7" stroke-dasharray="3 6" stroke-linecap="round"/><circle cx="${x}" cy="${y}" r="15" fill="${c}"/><circle cx="${x-4}" cy="${y-5}" r="7" fill="#fff" opacity=".45"/></g>`}
+function hairBack(t,hg){
+  const f=`fill="url(#${hg})"`;
+  switch(t.s){
+  case "pony":return `<g class="tail"><path d="M158 66 Q222 70 206 160 Q190 118 156 104Z" ${f}/></g>`;
+  case "twin":return `<g class="tailL"><path d="M82 90 Q30 110 44 190 Q64 140 90 120Z" ${f}/></g><g class="tail"><path d="M158 90 Q210 110 196 190 Q176 140 150 120Z" ${f}/></g>`;
+  case "bob":return `<path d="M62 100 Q58 36 120 36 Q182 36 178 100 L180 146 Q150 158 120 148 Q90 158 60 146Z" ${f}/>`;
+  case "long":return `<path d="M62 100 Q58 36 120 36 Q182 36 178 100 L186 205 Q150 220 120 205 Q90 220 54 205Z" ${f}/>`;
+  case "buns":return `<circle cx="78" cy="48" r="22" ${f}/><circle cx="162" cy="48" r="22" ${f}/><path d="M64 100 Q60 40 120 40 Q180 40 176 100 L172 126 L68 126Z" ${f}/>`;
+  case "side":return `<g class="tailL"><path d="M82 62 Q22 64 38 150 Q56 110 88 100Z" ${f}/></g>`;
+  }
+}
+function char(t){
+  const u="g"+Math.random().toString(36).slice(2,7),c=t.c;
+  return `<svg viewBox="0 0 240 310" aria-hidden="true"><defs>
+  <radialGradient id="${u}s" cx=".4" cy=".35" r=".8"><stop offset="0" stop-color="#ffe9d8"/><stop offset="1" stop-color="#f2b08e"/></radialGradient>
+  <linearGradient id="${u}u" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${sh(c,.3)}"/><stop offset=".55" stop-color="${c}"/><stop offset="1" stop-color="${sh(c,-.3)}"/></linearGradient>
+  <linearGradient id="${u}h" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${sh(t.h,.25)}"/><stop offset="1" stop-color="${sh(t.h,-.25)}"/></linearGradient></defs>
+  <ellipse cx="120" cy="302" rx="70" ry="8" fill="#000" opacity=".3"/>
+  <g class="body">
+   <rect x="100" y="236" width="15" height="46" rx="7" fill="url(#${u}s)"/><rect x="125" y="236" width="15" height="46" rx="7" fill="url(#${u}s)"/>
+   <rect x="99" y="264" width="17" height="18" fill="#fff"/><rect x="99" y="268" width="17" height="4" fill="${c}"/><rect x="124" y="264" width="17" height="18" fill="#fff"/><rect x="124" y="268" width="17" height="4" fill="${c}"/>
+   <ellipse cx="106" cy="288" rx="14" ry="8" fill="#fff" stroke="${c}" stroke-width="3"/><ellipse cx="134" cy="288" rx="14" ry="8" fill="#fff" stroke="${c}" stroke-width="3"/>
+   <g class="skirt"><path d="M80 212 L160 212 L180 258 Q120 274 60 258Z" fill="url(#${u}u)"/>
+    <path d="M100 214 L88 262M120 214 L120 268M140 214 L152 262" stroke="${sh(c,-.35)}" stroke-width="2" opacity=".5"/>
+    <path d="M60 258 Q120 274 180 258" fill="none" stroke="#fff" stroke-width="5"/></g>
+   <path d="M88 150 Q120 138 152 150 L160 218 L80 218Z" fill="url(#${u}u)"/>
+   <path d="M80 206 L160 206 L160 214 L80 214Z" fill="#fff"/>
+   <path d="M104 146 L120 170 L136 146" fill="#fff"/>
+   <polygon points="120,172 125,184 138,184 128,192 132,205 120,197 108,205 112,192 102,184 115,184" fill="#fff" opacity=".95"/>
+   <g class="aL"><line x1="92" y1="158" x2="58" y2="116" stroke="url(#${u}s)" stroke-width="13" stroke-linecap="round"/><circle cx="92" cy="158" r="11" fill="${c}"/>${pom(52,108,c)}</g>
+   <g class="aR"><line x1="148" y1="158" x2="182" y2="116" stroke="url(#${u}s)" stroke-width="13" stroke-linecap="round"/><circle cx="148" cy="158" r="11" fill="${c}"/>${pom(188,108,c)}</g>
+   <rect x="112" y="138" width="16" height="16" fill="url(#${u}s)"/>
+   <g class="head">
+    ${hairBack(t,u+"h")}
+    <circle cx="120" cy="100" r="52" fill="url(#${u}s)"/>
+    <path d="M66 104 Q62 40 120 40 Q178 40 174 104 Q156 66 128 72 Q104 66 66 104Z" fill="url(#${u}h)"/>
+    <path d="M74 98 Q80 70 100 66 Q86 84 82 112Z M166 98 Q160 70 140 66 Q154 84 158 112Z" fill="url(#${u}h)"/>
+    <ellipse cx="98" cy="110" rx="8" ry="11" fill="#2b2340"/><ellipse cx="142" cy="110" rx="8" ry="11" fill="#2b2340"/>
+    <circle cx="101" cy="105" r="3.6" fill="#fff"/><circle cx="145" cy="105" r="3.6" fill="#fff"/><circle cx="96" cy="115" r="1.8" fill="#fff"/><circle cx="140" cy="115" r="1.8" fill="#fff"/>
+    <ellipse cx="82" cy="124" rx="9" ry="6" fill="#ff7f9d" opacity=".55"/><ellipse cx="158" cy="124" rx="9" ry="6" fill="#ff7f9d" opacity=".55"/>
+    <path d="M106 128 Q120 146 134 128Z" fill="#7a1f3a"/><path d="M112 136 Q120 142 128 136Z" fill="#ff8fa8"/>
+    <g transform="translate(160 54) rotate(18)"><path d="M0 0 L-24 -14 L-24 14Z M0 0 L24 -14 L24 14Z" fill="${c}" stroke="#fff" stroke-width="2.5"/><circle r="6" fill="#fff"/></g>
+   </g>
+  </g></svg>`;
+}
+
+/* ===== เกม ===== */
+const $=id=>document.getElementById(id), KEY="cheerGame";
+const show=id=>document.querySelectorAll(".screen").forEach(s=>s.classList.toggle("on",s.id===id));
+let team,score=0,endAt=0,sid="",tick,syncT,boostTO,lastSent=-1,total=DURATION_MIN*60000;
+
+TEAMS.forEach(t=>{const b=document.createElement("button");b.className="team";
+  b.style.setProperty("--t",t.c);b.style.setProperty("--d",sh(t.c,-.45));
+  b.innerHTML=char(t)+t.n;b.onclick=()=>begin(t,0,Date.now()+total,"p"+Date.now().toString(36)+Math.random().toString(36).slice(2,7));
+  $("teams").appendChild(b)});
+
+function theme(t){const r=document.documentElement.style;r.setProperty("--c",t.c);r.setProperty("--dk",sh(t.c,-.45))}
+function save(){localStorage.setItem(KEY,JSON.stringify({sid,ti:TEAMS.indexOf(team),score,endAt}))}
+function begin(t,sc,end,id){
+  team=t;score=sc;endAt=end;sid=id;lastSent=-1;theme(t);
+  $("tname").textContent="คณะ"+t.n;$("score").textContent=score.toLocaleString();
+  $("charBox").innerHTML=char(t);$("hint").style.display=score?"none":"";
+  show("play");save();push(true);
+  clearInterval(tick);tick=setInterval(update,250);
+  clearInterval(syncT);syncT=setInterval(()=>push(false),SYNC_MS);update();
+}
+function update(){
+  const left=Math.max(0,endAt-Date.now()),s=Math.ceil(left/1000);
+  $("timer").textContent=String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");
+  $("pbar").style.width=(left/total*100)+"%";
+  if(left<=0)finish();
+}
+/* ส่งคะแนนเข้า Google Sheet (อัปเดตแถวเดิมของผู้เล่นคนนี้) */
+function push(force){
+  if(!team||!SHEET_URL.startsWith("http"))return;
+  if(!force&&score===lastSent)return;
+  lastSent=score;
+  const body=JSON.stringify({id:sid,team:team.n,score});
+  let ok=false;
+  try{ok=navigator.sendBeacon&&navigator.sendBeacon(SHEET_URL,new Blob([body],{type:"text/plain"}))}catch(e){}
+  if(!ok)fetch(SHEET_URL,{method:"POST",mode:"no-cors",keepalive:true,headers:{"Content-Type":"text/plain"},body}).catch(()=>{lastSent=-1});
+  const d=new Date();$("sync").textContent="☁️ บันทึกล่าสุด "+d.toLocaleTimeString("th-TH");
+}
+$("pad").addEventListener("pointerdown",e=>{
+  e.preventDefault();if(Date.now()>=endAt)return;
+  score++;$("score").textContent=score.toLocaleString();$("hint").style.display="none";save();
+  const sv=$("charBox").firstElementChild;sv.classList.add("boost");
+  clearTimeout(boostTO);boostTO=setTimeout(()=>sv.classList.remove("boost"),350);
+  const pad=$("pad"),r=pad.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;
+  const p=document.createElement("span");p.className="fx";p.textContent="+1";p.style.left=x-14+"px";p.style.top=y-24+"px";pad.appendChild(p);setTimeout(()=>p.remove(),800);
+  for(let i=0;i<4;i++){const d=document.createElement("i");d.className="dot";d.style.cssText=`left:${x}px;top:${y}px;background:${i%2?"#fff":team.c};--x:${(Math.random()-.5)*120}px;--y:${-30-Math.random()*70}px`;pad.appendChild(d);setTimeout(()=>d.remove(),700)}
+});
+function finish(){
+  clearInterval(tick);clearInterval(syncT);push(true);
+  localStorage.removeItem(KEY);
+  $("final").textContent=score.toLocaleString();$("dteam").textContent="คณะ"+team.n;show("done");
+}
+/* บันทึกทันทีเมื่อออกจากหน้า/สลับแอป/ปิดเบราว์เซอร์ */
+document.addEventListener("visibilitychange",()=>{if(document.hidden)push(true)});
+addEventListener("pagehide",()=>push(true));
+$("again").onclick=()=>{theme(TEAMS[0]);show("pick")};
+/* กลับเข้ามาเล่นต่อได้ถ้ายังไม่หมดเวลา */
+try{const s=JSON.parse(localStorage.getItem(KEY)||"null");
+  if(s&&s.endAt>Date.now())begin(TEAMS[s.ti],s.score,s.endAt,s.sid);else localStorage.removeItem(KEY)}catch(e){}
+</script>
+</body>
+</html>
